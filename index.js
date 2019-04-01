@@ -16,11 +16,11 @@ var guessedLetters = [];
 var solution;
 
 function main() {
+  console.log(solution.wordToString());
   if (solution.gotWord()) {
     reset();
     // console.log(guessedLetters);
   }
-  console.log(solution.wordToString());
   guess();
 }
 
@@ -46,9 +46,10 @@ function guess() {
       if (response.userGuess.length > 1) {
         console.log("Please only enter one character at a time.");
         guess();
-      } else if (guessedLetters.indexOf(response.userGuess) >= 0) {
-        console.log("You already guessed that letter.");
-        guess();
+        // } else if (guessedLetters.indexOf(response.userGuess) >= 0) {
+        //   console.log(guessedLetters.indexOf(response.userGuess));
+        //   console.log("You already guessed that letter.");
+        //   guess();
       } else {
         // console.log("Guessed", response.userGuess);
         var changed = solution.letterCheck(response.userGuess);
