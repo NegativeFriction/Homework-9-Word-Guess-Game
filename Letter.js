@@ -7,15 +7,20 @@ var Letter = function(val) {
 
   this.isGuessed = function() {
     if (this.guessed | (this.val === " ")) {
-      return val;
+      console.log("Guessed it");
+      return " " + val + " ";
     } else {
-      return "/";
+      return " _ ";
     }
   };
 
   this.guess = function(userGuess) {
     if (userGuess === this.val) {
       this.guessed = true;
+      return true;
     }
+    return false;
   };
 };
+
+module.exports = Letter;
