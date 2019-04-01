@@ -7,7 +7,7 @@ var Letter = function(val) {
 
   this.isGuessed = function() {
     if (this.guessed | (this.val === " ")) {
-      console.log("Guessed it");
+      // console.log("Guessed it");
       return " " + val + " ";
     } else {
       return " _ ";

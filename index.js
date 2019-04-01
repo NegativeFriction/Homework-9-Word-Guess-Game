@@ -18,7 +18,7 @@ var solution;
 function main() {
   if (solution.gotWord()) {
     reset();
-    console.log(guessedLetters);
+    // console.log(guessedLetters);
   }
   console.log(solution.wordToString());
   guess();
@@ -28,7 +28,7 @@ function reset() {
   index++;
   guessesRemaining = 10;
   guessedLetters = [];
-  console.log(wordsArray[index]);
+  // console.log(wordsArray[index]);
   solution = new Word(wordsArray[index]);
   main();
 }
@@ -50,9 +50,9 @@ function guess() {
         console.log("You already guessed that letter.");
         guess();
       } else {
-        console.log("Guessed", response.userGuess);
+        // console.log("Guessed", response.userGuess);
         var changed = solution.letterCheck(response.userGuess);
-        console.log("Changed:", changed);
+        // console.log("Changed:", changed);
         if (!changed) {
           guessesRemaining--;
         }
