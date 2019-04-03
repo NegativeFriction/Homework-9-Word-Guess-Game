@@ -6,61 +6,63 @@ var wordsArray = [
   "haddassah",
   "elton tom",
   "dartaniel",
-  "michael deletes comments from slack did you think i would forget michael well i did not i remember everything michael.",
+  "michael is tha besssttt",
   "poornima"
 ];
 
-var index = -1;
+var index = 0;
 var guessesRemaining = 10;
 var guessedLetters = [];
 var solution;
 
-function main() {
+function startGame() {
+  solution = new Word(wordsArray[index]);
+  renderLetters(solution);
+  promptGuess();
+}
+
+function renderLetters() {
   console.log(solution.wordToString());
+}
+
+function checkGuess(guess) {
+  if (solution.letterCheck(guess)) {
+    guessesRemaining--;
+  }
+  guessedLetters.push(guess);
   if (solution.gotWord()) {
     reset();
-    // console.log(guessedLetters);
+  } else {
+    renderLetters();
+    promptGuess();
   }
-  guess();
 }
 
 function reset() {
   index++;
   guessesRemaining = 10;
   guessedLetters = [];
-  // console.log(wordsArray[index]);
-  solution = new Word(wordsArray[index]);
-  main();
+  startGame();
 }
 
-function guess() {
+function promptGuess() {
   inquirer
     .prompt({
       message:
         "Please pick a letter (" + guessesRemaining + ") guesses remaining.",
       name: "userGuess",
-      type: "input"
+      type: "input",
+      validate: function(input) {
+        return (
+          input.length === 1 || "Please only enter one character at a time."
+        );
+      }
     })
     .then(function(response) {
-      console.log(response.userGuess);
-      if (response.userGuess.length > 1) {
-        console.log("Please only enter one character at a time.");
-        guess();
-        // } else if (guessedLetters.indexOf(response.userGuess) >= 0) {
-        //   console.log(guessedLetters.indexOf(response.userGuess));
-        //   console.log("You already guessed that letter.");
-        //   guess();
-      } else {
-        // console.log("Guessed", response.userGuess);
-        var changed = solution.letterCheck(response.userGuess);
-        // console.log("Changed:", changed);
-        if (!changed) {
-          guessesRemaining--;
-        }
-        guessedLetters.push(response.userGuess);
-        main();
-      }
+      var guess = response.userGuess;
+      checkGuess(guess, solution);
     });
 }
 
-reset();
+startGame();
+
